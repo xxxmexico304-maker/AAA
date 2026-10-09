@@ -1,8 +1,215 @@
-<HTML>
-  <HEAD>
-    <TITLE>My first page</TITLE>
-  </HEAD>
-  <BODY>
-    我的第一个网页 
-  </BODY>
-</HTML>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>演示页面布局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+
+        /* 顶部导航栏 */
+        .top-nav {
+            background-color: #000000;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            color: white;
+        }
+
+        .hamburger {
+            font-size: 28px;
+            margin-right: 24px;
+            cursor: pointer;
+        }
+
+        .nav-items {
+            display: flex;
+            gap: 40px;
+            flex-grow: 1;
+        }
+
+        .nav-item {
+            font-size: 20px;
+            padding-bottom: 8px;
+            cursor: pointer;
+            position: relative;
+        }
+        /* 白色下划线，从中间向两边展开动画 */
+        .nav-item::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0%;
+            height: 3px;
+            background-color: #ffffff;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-item.active::after {
+            width:100%;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* 白色圆形头像容器 */
+        .avatar-wrap {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 放大镜搜索图标 */
+        .search-icon {
+            width: 26px;
+            height: 26px;
+            cursor: pointer;
+        }
+
+        .search-input {
+            height: 36px;
+            padding: 0 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: none;
+            outline: none;
+        }
+
+        /* 主体容器 */
+        .container {
+            display: flex;
+        }
+
+        /* 左侧索引侧边栏 */
+        .sidebar {
+            width: 55px;
+            background-color: #444444;
+            color: white;
+            height: calc(100vh - 70px);
+            transition: width 0.3s ease;
+            overflow: hidden;
+            padding-top: 16px;
+        }
+
+        .sidebar:hover {
+            width: 220px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            padding:12px 16px;
+            white-space: nowrap;
+            position:relative;
+        }
+        /* 侧边栏章节条目白色下划线，宽度从0动画展开 */
+        .sidebar a::after{
+            content:"";
+            position:absolute;
+            bottom:6px;
+            left:16px;
+            width:0;
+            height:3px;
+            background-color:#ffffff;
+            transition: width 0.3s ease;
+        }
+        .sidebar a.active::after{
+            width:calc(100% - 32px);
+        }
+
+        .sidebar a:hover {
+            background-color: #585858;
+        }
+
+        .main {
+            flex: 1;
+            background: #ffffff;
+            height: calc(100vh - 70px);
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-nav">
+        <div class="hamburger">☰</div>
+
+        <div class="nav-items">
+            <div class="nav-item" data-id="home">首页</div>
+            <div class="nav-item" data-id="category">分类</div>
+        </div>
+
+        <div class="header-right">
+            <!-- 头像：白色圆形背景，黑色简约小人，头部为黑色实心圆 -->
+            <div class="avatar-wrap" onclick="alert('进入个人账号页面')">
+                <svg width="26" height="26" viewBox="0 0 24 24" fill="#000000">
+                    <!-- 黑色实心圆头部 -->
+                    <circle cx="12" cy="8" r="4" fill="#000000" />
+                    <!-- 肩部 -->
+                    <path d="M4 20 C4 16 8 14 12 14 C16 14 20 16 20 20 Z" />
+                </svg>
+            </div>
+
+            <!-- 白色放大镜搜索图标 -->
+            <svg class="search-icon" viewBox="0 0 24 24" fill="#ffffff" onclick="alert('点击搜索')">
+                <path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+            </svg>
+
+            <input class="search-input" placeholder="输入搜索内容...">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="sidebar">
+            <a href="#" data-chap="c1">1.1 章节标题</a>
+            <a href="#" data-chap="c2">1.2 章节标题</a>
+            <a href="#" data-chap="c3">1.3 章节标题</a>
+            <a href="#" data-chap="c4">2.1 章节标题</a>
+            <a href="#" data-chap="c5">2.2 章节标题</a>
+            <a href="#" data-chap="c6">3.1 章节标题</a>
+        </div>
+
+        <div class="main">
+            <!-- 主内容区域 -->
+        </div>
+    </div>
+
+    <script>
+        //顶部导航单选下划线（白色，从中间向两边展开动画）
+        const navList = document.querySelectorAll(".nav-item");
+        navList.forEach(el => {
+            el.addEventListener("click", () => {
+                navList.forEach(item => item.classList.remove("active"));
+                el.classList.add("active");
+            });
+        });
+        //左侧侧边章节单选，点击出现白色下划线动画
+        const chapterItems = document.querySelectorAll(".sidebar a");
+        chapterItems.forEach(el=>{
+            el.addEventListener("click",(e)=>{
+                e.preventDefault();
+                chapterItems.forEach(item=>item.classList.remove("active"));
+                el.classList.add("active");
+            })
+        })
+    </script>
+</body>
+</html>
